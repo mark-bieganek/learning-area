@@ -1,11 +1,12 @@
 function onClick() {
   // Validate name input
-  if (inputIsEmpty(customName)) {
+  if (inputIsEmpty(customName.value)) {
     // No name was entered, abort and print error.
     console.log("error: name is empty");
     return;
   } else {
-
+    // Generate a random story.
+    console.log(`It was 94 fahrenheit outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs 300 pounds, and it was a hot day.`);
   }
 }
 
@@ -17,9 +18,15 @@ function inputIsEmpty(input) {
   }
 }
 
+function capitalize(str) {
+  const upperCase = str.toUpperCase();
+  const lowerCase = str.toLowerCase();
+  return upperCase.slice(0,1) + lowerCase.slice(1);
+}
+
 function randomValueFromArray(array){
-const random = Math.floor(Math.random()*array.length);
-return array[random];
+  const random = Math.floor(Math.random()*array.length);
+  return array[random];
 }
 
 const arrName = [
@@ -40,8 +47,9 @@ const arrOutcome = [
   "turned into a slug and crawled away"
 ]
 
-const customName = document.getElementById('customname').textContent;
+const customName = document.getElementById('customname');
 const randomize = document.querySelector('.randomize');
 const story = document.querySelector('.story');
+const protagonistName = randomValueFromArray(arrName);
 
 randomize.addEventListener('click', (event) => {onClick()});
