@@ -1,5 +1,6 @@
 function onClick() {
 
+  const measurements = document.querySelectorAll('input[name="ukus"]');
   // Detect user preference: Imperial or Metric.
   let selectedUnit;
   for (const measurement of measurements) {
@@ -16,6 +17,23 @@ function onClick() {
   let temperature = selectedUnit === "Metric" ? convertTempTo(degreesType, 94) : 94;
   // Convert to Metric weight if UK was selected.
   let weight = selectedUnit === "Metric" ? convertWeightTo(weightType, 300) : 300;
+
+  // Arrays from which to randomize the story
+  const arrName = [
+    "Willy the Goblin",
+    "Big Daddy",
+    "Father Christmas"
+  ]
+  const arrPlace = [
+    "the soup kitchen",
+    "Disneyland",
+    "the White House"
+  ]
+  const arrOutcome = [
+    "spontaneously combusted",
+    "melted into a puddle on the sidewalk",
+    "turned into a slug and crawled away"
+  ]
 
   // Assign story elements.
   let customName = document.getElementById('customname').value;
@@ -61,26 +79,6 @@ function randomValueFromArray(array){
   return array[random];
 }
 
-const arrName = [
-  "Willy the Goblin",
-  "Big Daddy",
-  "Father Christmas"
-]
-
-const arrPlace = [
-  "the soup kitchen",
-  "Disneyland",
-  "the White House"
-]
-
-const arrOutcome = [
-  "spontaneously combusted",
-  "melted into a puddle on the sidewalk",
-  "turned into a slug and crawled away"
-]
-
-const measurements = document.querySelectorAll('input[name="ukus"]');
-const randomize = document.querySelector('.randomize');
-randomize.addEventListener('click', (event) => {onClick()});
+document.querySelector('.randomize').addEventListener('click', (event) => {onClick()});
 
 
