@@ -38,9 +38,9 @@ function onClick() {
   // Assign story elements.
   let customName = document.getElementById('customname').value;
   customName = customName ? capitalize(customName) : "Bob";
-  const protagonistName = randomValueFromArray(arrName);
-  const place = randomValueFromArray(arrPlace);
-  const outcome = randomValueFromArray(arrOutcome);
+  const protagonistName = randomArrayItem(arrName);
+  const place = randomArrayItem(arrPlace);
+  const outcome = randomArrayItem(arrOutcome);
 
   // Generate a random story.
   const story = document.querySelector('.story');
@@ -74,10 +74,13 @@ function convertWeightTo(preference, weight) {
   return newWeight;
 }
 
-function randomValueFromArray(array){
+function randomArrayItem(array){
   // This function retrieves a random value from a provided array.
-  const random = Math.floor(Math.random()*array.length);
-  return array[random];
+  return array[random(array.length)];
+}
+
+function random(number) {
+  return Math.floor(Math.random() * number);
 }
 
 // Script will fire if the user clicks the 'Generate random story' button.
