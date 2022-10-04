@@ -16,7 +16,7 @@ function onClick() {
   // Convert to Metric temperature if UK was selected.
   let temperature = selectedUnit === "Metric" ? convertTempTo(degreesType, 94) : 94;
   // Convert to Metric weight if UK was selected.
-  let weight = selectedUnit === "Metric" ? convertWeightTo(weightType, 300) : 300;
+  let weight = selectedUnit === "Metric" ? convertLbsTo(weightType, 300) : 300;
 
   // Arrays from which to randomize the story
   const arrName = [
@@ -64,14 +64,16 @@ function convertTempTo(preference, temperature) {
   return newTemperature;
 }
 
-function convertWeightTo(preference, weight) {
-  let newWeight;
-  // 1 lb = 0.45359237 kg
-  // 1 kg = 2.2046 lbs
-  preference === 'Kilograms' ? newWeight = weight*0.45359237 : newWeight = weight*2.2046;
-  // Round the new temperature
-  newWeight = Math.round(newWeight);
-  return newWeight;
+function convertLbsTo(convertToUnit, weightIn) {
+  let weightOut;
+  const map1 = new Map();
+  map1.set('kilograms', weightIn / 2.2046);
+  map1.set('grams', weightIn / 0.0022046);
+  map1.set('oz', weightIn * 16);
+  weightOut = map1.get(convertToUnit.toLowerCase());
+  // Round the output.
+  weightOut = Math.round(weightOut);
+  return weightOut;
 }
 
 function randomArrayItem(array){
