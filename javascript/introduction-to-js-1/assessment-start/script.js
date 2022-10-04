@@ -75,10 +75,12 @@ function convertWeightTo(preference, weight) {
 }
 
 function randomValueFromArray(array){
+  // This function retrieves a random value from a provided array.
   const random = Math.floor(Math.random()*array.length);
   return array[random];
 }
 
+// Script will fire if the user clicks the 'Generate random story' button.
 document.querySelector('.randomize').addEventListener('click', (event) => {onClick()});
 
 
