@@ -9,13 +9,14 @@ function onClick() {
   let selectedUnit;
   for (const measurement of measurements) {
       if (measurement.checked) {
-          selectedUnit = measurement.value;
+          selectedUnit = measurement.value === 'us' ? 'Fahrenheit' : 'Celsius';
           break;
       }
   }
-  console.log (selectedUnit);
+  let temperature = 94;
+  selectedUnit === 'Metric' ? temperature = convertTempTo(selectedUnit, temperature) : temperature = 94;
   // Generate a random story.
-  console.log(`It was 94 fahrenheit outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs 300 pounds, and it was a hot day.`);
+  console.log(`It was ${temperature} ${selectedUnit} outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs 300 pounds, and it was a hot day.`);
 }
 
 function inputIsEmpty(input) {
@@ -30,6 +31,16 @@ function capitalize(str) {
   const upperCase = str.toUpperCase();
   const lowerCase = str.toLowerCase();
   return upperCase.slice(0,1) + lowerCase.slice(1);
+}
+
+function convertTempTo(preference, temperature) {
+  let newTemperature;
+  // ℃=(℉-32)/1.8
+  // ℉=℃*(9/5)+32
+  preference === 'Celsius' ? newTemperature = (temperature-32)/1.8 : newTemperature = temperature*(9/5)+32;
+  // Round the new temperature
+  newTemperature = Math.round(newTemperature);
+  return newTemperature;
 }
 
 function randomValueFromArray(array){
@@ -65,6 +76,4 @@ randomize.addEventListener('click', (event) => {onClick()});
 // We need a way to detect if the user has requested Metric (UK) measurements.
 const measurements = document.querySelectorAll('input[name="ukus"]');
 
-/*
-We need a way to convert Imperial (US) weight and temperature units to Metric (UK) equivalents.
-*/
+
