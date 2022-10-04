@@ -1,11 +1,6 @@
 function onClick() {
-  // Validate name input
-  if (inputIsEmpty(customName.value)) {
-    // No name was entered, abort and print error.
-    console.log("error: name is empty");
-    return;
-  };
 
+  // Detect user preference: Imperial or Metric.
   let selectedUnit;
   for (const measurement of measurements) {
       if (measurement.checked) {
@@ -13,6 +8,7 @@ function onClick() {
           break;
       }
   }
+
   // Define labels for temperature and weight measurements.
   let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
   let weightType = selectedUnit === "Metric" ? "Kilograms" : "Pounds";
@@ -21,23 +17,17 @@ function onClick() {
   // Convert to Metric weight if UK was selected.
   let weight = selectedUnit === "Metric" ? convertWeightTo(weightType, 300) : 300;
 
-  // Assign random elements of the story
+  // Assign story elements.
+  let customName = document.getElementById('customname').value;
+  customName = customName ? capitalize(customName) : "Bob";
   const protagonistName = randomValueFromArray(arrName);
   const place = randomValueFromArray(arrPlace);
   const outcome = randomValueFromArray(arrOutcome);
 
   // Generate a random story.
-  const story = `It was ${temperature} ${degreesType} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs ${weight} ${weightType}, and it was a hot day.`;
-  document.querySelector('.story').textContent = story;
-  document.querySelector('.story').style.visibility = "visible";
-}
-
-function inputIsEmpty(input) {
-  if (input === '') {
-    return true;
-  } else {
-    return false;
-  }
+  const story = document.querySelector('.story');
+  story.textContent = `It was ${temperature} ${degreesType} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${weight} ${weightType}, and it was a hot day.`;
+  story.style.visibility = "visible";
 }
 
 function capitalize(str) {
@@ -89,10 +79,8 @@ const arrOutcome = [
   "turned into a slug and crawled away"
 ]
 
-const customName = document.getElementById('customname');
 const measurements = document.querySelectorAll('input[name="ukus"]');
 const randomize = document.querySelector('.randomize');
-const story = document.querySelector('.story');
 randomize.addEventListener('click', (event) => {onClick()});
 
 
