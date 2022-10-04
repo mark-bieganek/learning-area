@@ -4,10 +4,18 @@ function onClick() {
     // No name was entered, abort and print error.
     console.log("error: name is empty");
     return;
-  } else {
-    // Generate a random story.
-    console.log(`It was 94 fahrenheit outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs 300 pounds, and it was a hot day.`);
+  };
+
+  let selectedUnit;
+  for (const measurement of measurements) {
+      if (measurement.checked) {
+          selectedUnit = measurement.value;
+          break;
+      }
   }
+  console.log (selectedUnit);
+  // Generate a random story.
+  console.log(`It was 94 fahrenheit outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs 300 pounds, and it was a hot day.`);
 }
 
 function inputIsEmpty(input) {
@@ -53,3 +61,10 @@ const story = document.querySelector('.story');
 const protagonistName = randomValueFromArray(arrName);
 
 randomize.addEventListener('click', (event) => {onClick()});
+
+// We need a way to detect if the user has requested Metric (UK) measurements.
+const measurements = document.querySelectorAll('input[name="ukus"]');
+
+/*
+We need a way to convert Imperial (US) weight and temperature units to Metric (UK) equivalents.
+*/
