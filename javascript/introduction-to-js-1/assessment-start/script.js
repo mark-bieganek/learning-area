@@ -9,14 +9,17 @@ function onClick() {
   let selectedUnit;
   for (const measurement of measurements) {
       if (measurement.checked) {
-          selectedUnit = measurement.value === 'us' ? 'Fahrenheit' : 'Celsius';
+          selectedUnit = measurement.value === 'us' ? 'Imperial' : 'Metric';
           break;
       }
   }
-  let temperature = 94;
-  selectedUnit === 'Metric' ? temperature = convertTempTo(selectedUnit, temperature) : temperature = 94;
+  // Convert to Metric temperature if UK was selected.
+  let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
+  let weightType = selectedUnit === "Metric" ? "Kilograms" : "Pounds";
+  let temperature = selectedUnit === "Metric" ? convertTempTo(degreesType, 94) : 94;
+  let weight = selectedUnit === "Metric" ? convertWeightTo(weightType, 300) : 300;
   // Generate a random story.
-  console.log(`It was ${temperature} ${selectedUnit} outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs 300 pounds, and it was a hot day.`);
+  console.log(`It was ${temperature} ${degreesType} outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs ${weight} ${weightType}, and it was a hot day.`);
 }
 
 function inputIsEmpty(input) {
@@ -43,6 +46,16 @@ function convertTempTo(preference, temperature) {
   return newTemperature;
 }
 
+function convertWeightTo(preference, weight) {
+  let newWeight;
+  // 1 lb = 0.45359237 kg
+  // 1 kg = 2.2046 lbs
+  preference === 'Kilograms' ? newWeight = weight*0.45359237 : newWeight = weight*2.2046;
+  // Round the new temperature
+  newWeight = Math.round(newWeight);
+  return newWeight;
+}
+
 function randomValueFromArray(array){
   const random = Math.floor(Math.random()*array.length);
   return array[random];
@@ -67,13 +80,11 @@ const arrOutcome = [
 ]
 
 const customName = document.getElementById('customname');
+const measurements = document.querySelectorAll('input[name="ukus"]');
 const randomize = document.querySelector('.randomize');
 const story = document.querySelector('.story');
 const protagonistName = randomValueFromArray(arrName);
 
 randomize.addEventListener('click', (event) => {onClick()});
-
-// We need a way to detect if the user has requested Metric (UK) measurements.
-const measurements = document.querySelectorAll('input[name="ukus"]');
 
 
