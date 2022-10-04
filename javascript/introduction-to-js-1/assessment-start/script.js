@@ -13,10 +13,12 @@ function onClick() {
           break;
       }
   }
-  // Convert to Metric temperature if UK was selected.
+  // Define labels for temperature and weight measurements.
   let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
   let weightType = selectedUnit === "Metric" ? "Kilograms" : "Pounds";
+  // Convert to Metric temperature if UK was selected.
   let temperature = selectedUnit === "Metric" ? convertTempTo(degreesType, 94) : 94;
+  // Convert to Metric weight if UK was selected.
   let weight = selectedUnit === "Metric" ? convertWeightTo(weightType, 300) : 300;
   // Generate a random story.
   console.log(`It was ${temperature} ${degreesType} outside, so ${protagonistName} went for a walk. When they got to  ${randomValueFromArray(arrPlace)} , they stared in horror for a few moments, then  ${randomValueFromArray(arrOutcome)} .  ${capitalize(customName.value)} saw the whole thing, but was not surprised — ${protagonistName} weighs ${weight} ${weightType}, and it was a hot day.`);
