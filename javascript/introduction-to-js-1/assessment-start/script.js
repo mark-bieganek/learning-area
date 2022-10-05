@@ -14,7 +14,7 @@ function onClick() {
   let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
   let weightType = selectedUnit === "Metric" ? "Kilograms" : "Pounds";
   // Convert to Metric temperature if UK was selected.
-  let temperature = selectedUnit === "Metric" ? convertTempTo(degreesType, 94) : 94;
+  let temperature = selectedUnit === "Metric" ? convertFahrenheitTo(degreesType, 94) : 94;
   // Convert to Metric weight if UK was selected.
   let weight = selectedUnit === "Metric" ? convertLbsTo(weightType, 300) : 300;
 
@@ -54,14 +54,15 @@ function capitalize(str) {
   return upperCase.slice(0,1) + lowerCase.slice(1);
 }
 
-function convertTempTo(preference, temperature) {
-  let newTemperature;
-  // ℃=(℉-32)/1.8
-  // ℉=℃*(9/5)+32
-  preference === 'Celsius' ? newTemperature = (temperature-32)/1.8 : newTemperature = temperature*(9/5)+32;
-  // Round the new temperature
-  newTemperature = Math.round(newTemperature);
-  return newTemperature;
+function convertFahrenheitTo(convertToUnit, tempIn) {
+  let tempOut;
+  const map1 = new Map();
+  map1.set('celsius', (tempIn-32)/1.8);
+  map1.set('kelvin', ((tempIn-32)/1.8)+273.15);
+  tempOut = map1.get(convertToUnit.toLowerCase());
+  // Round the output.
+  tempOut = Math.round(tempOut);
+  return tempOut;
 }
 
 function convertLbsTo(convertToUnit, weightIn) {
