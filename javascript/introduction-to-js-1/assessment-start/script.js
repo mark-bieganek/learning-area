@@ -1,14 +1,8 @@
 function onClick() {
 
   // Detect user preference: Imperial or Metric.
-  const measurements = document.querySelectorAll('input[name="ukus"]');
-  let selectedUnit;
-  for (const measurement of measurements) {
-      if (measurement.checked) {
-          selectedUnit = measurement.value === 'us' ? 'Imperial' : 'Metric';
-          break;
-      }
-  }
+  const country = getSelectedRadioButton('ukus');
+  const selectedUnit = country.value === 'us' ? 'Imperial' : 'Metric';
 
   // Define labels for temperature and weight measurements.
   let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
@@ -48,6 +42,16 @@ function onClick() {
   const story = document.querySelector('.story');
   story.textContent = `It was ${temperature} ${degreesType} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${weight} ${weightType}, and it was a hot day.`;
   story.style.visibility = "visible";
+}
+
+function getSelectedRadioButton(inputName) {
+  // This function retrieves a selected radio input by name
+  const inputs = document.querySelectorAll(`input[name="${inputName}"]`);
+  for (const input of inputs) {
+    if (input.checked) {
+      return input;
+    }
+  }
 }
 
 function capitalize(str) {
