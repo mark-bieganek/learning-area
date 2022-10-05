@@ -55,6 +55,8 @@ function capitalize(str) {
 }
 
 function convertFahrenheitTo(convertToUnit, tempIn) {
+  // This function converts a temperature in ℉ to another measurement system.
+  // Usage example: convertFahrenheitTo('Celsius', 94)
   let tempOut;
   const map1 = new Map();
   map1.set('celsius', (tempIn-32)/1.8);
@@ -66,6 +68,8 @@ function convertFahrenheitTo(convertToUnit, tempIn) {
 }
 
 function convertLbsTo(convertToUnit, weightIn) {
+  // This function converts a weight in Lbs to another measurement system.
+  // Usage example: convertLbsTo('Kilograms', 164)
   let weightOut;
   const map1 = new Map();
   map1.set('kilograms', weightIn / 2.2046);
@@ -82,8 +86,11 @@ function randomArrayItem(array){
   return array[random(array.length)];
 }
 
-function random(number) {
-  return Math.floor(Math.random() * number);
+function random(max, min) {
+  // This function returns a random number within a range
+  // min is optional with 0 used as default.
+  const rangeMin = typeof min !== 'undefined' ? min : 0;
+  return Math.floor(Math.random() * max) + rangeMin;
 }
 
 // Script will fire if the user clicks the 'Generate random story' button.
