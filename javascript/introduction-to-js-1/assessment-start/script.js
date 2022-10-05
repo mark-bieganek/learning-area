@@ -101,6 +101,4 @@ function random(max, min) {
 }
 
 // Script will fire if the user clicks the 'Generate random story' button.
-document.querySelector('.randomize').addEventListener('click', (event) => {onClick()});
-
-
+document.getElementById('randomize').addEventListener('click', onClick);
