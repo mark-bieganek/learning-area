@@ -4,13 +4,18 @@ function onClick() {
   const country = getSelectedRadioButton('ukus');
   const selectedUnit = country.value === 'us' ? 'Imperial' : 'Metric';
 
-  // Define labels for temperature and weight measurements.
-  let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
-  let weightType = selectedUnit === "Metric" ? "Kilograms" : "Pounds";
-  // Convert to Metric temperature if UK was selected.
-  let temperature = selectedUnit === "Metric" ? Math.round(convertFahrenheitTo(degreesType, 94)) : 94;
-  // Convert to Metric weight if UK was selected.
-  let weight = selectedUnit === "Metric" ? Math.round(convertLbsTo(weightType, 300)) : 300;
+  // Define default temperature and weight.
+  let degreesType = "Fahrenheit";
+  let weightType = "Pounds";
+  let temperature = 94;
+  let weight = 300;
+  // If the user prefers Metric, change these labels and measurements accordingly.
+  if (selectedUnit === "Metric") {
+    degreesType = "Celsius";
+    weightType = "Kilograms";
+    temperature = Math.round(convertFahrenheitTo(degreesType, temperature));
+    weight = Math.round(convertLbsTo(weightType, weight));
+  };
 
   // Arrays from which to randomize the story
   const arrName = [
