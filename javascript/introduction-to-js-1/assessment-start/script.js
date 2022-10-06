@@ -34,9 +34,9 @@ function onClick() {
   let customName = document.getElementById('customname').value;
   customName = customName ? capitalize(customName) : "Bob";
   // Let's randomize the story details!
-  const protagonistName = randomArrayItem(arrName);
-  const place = randomArrayItem(arrPlace);
-  const outcome = randomArrayItem(arrOutcome);
+  const protagonistName = getRandomArrayItem(arrName);
+  const place = getRandomArrayItem(arrPlace);
+  const outcome = getRandomArrayItem(arrOutcome);
 
   // Generate a random story.
   const story = document.querySelector('.story');
@@ -92,7 +92,7 @@ function convertLbsTo(convertToUnit, weightIn) {
   return weightOut;
 }
 
-function randomArrayItem(array){
+function getRandomArrayItem(array){
   // This function retrieves a random value from a provided array.
   return array[random(array.length)];
 }
