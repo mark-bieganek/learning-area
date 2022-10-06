@@ -95,10 +95,10 @@ function convertLbsTo(convertToUnit, weightIn) {
 
 function getRandomArrayItem(array){
   // This function retrieves a random value from a provided array.
-  return array[random(array.length)];
+  return array[getRandomNumber(0, array.length)];
 }
 
-function random(max, min = 0) {
+function getRandomNumber(min = 0, max) {
   // This function returns a random number within a range
   // min is optional with 0 used as default.
   return Math.floor(Math.random() * max) + min;
