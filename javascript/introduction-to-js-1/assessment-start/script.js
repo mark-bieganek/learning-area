@@ -8,9 +8,9 @@ function onClick() {
   let degreesType = selectedUnit === "Metric" ? "Celsius" : "Fahrenheit";
   let weightType = selectedUnit === "Metric" ? "Kilograms" : "Pounds";
   // Convert to Metric temperature if UK was selected.
-  let temperature = selectedUnit === "Metric" ? convertFahrenheitTo(degreesType, 94) : 94;
+  let temperature = selectedUnit === "Metric" ? Math.round(convertFahrenheitTo(degreesType, 94)) : 94;
   // Convert to Metric weight if UK was selected.
-  let weight = selectedUnit === "Metric" ? convertLbsTo(weightType, 300) : 300;
+  let weight = selectedUnit === "Metric" ? Math.round(convertLbsTo(weightType, 300)) : 300;
 
   // Arrays from which to randomize the story
   const arrName = [
@@ -71,8 +71,6 @@ function convertFahrenheitTo(convertToUnit, tempIn) {
   map1.set('kelvin', ((tempIn-32)/1.8)+273.15);
   // Perform the conversion.
   tempOut = map1.get(convertToUnit.toLowerCase());
-  // Round the output.
-  tempOut = Math.round(tempOut);
   return tempOut;
 }
 
@@ -87,8 +85,6 @@ function convertLbsTo(convertToUnit, weightIn) {
   map1.set('oz', weightIn * 16);
   // Perform the conversion.
   weightOut = map1.get(convertToUnit.toLowerCase());
-  // Round the output.
-  weightOut = Math.round(weightOut);
   return weightOut;
 }
 
