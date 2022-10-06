@@ -97,11 +97,10 @@ function randomArrayItem(array){
   return array[random(array.length)];
 }
 
-function random(max, min) {
+function random(max, min = 0) {
   // This function returns a random number within a range
   // min is optional with 0 used as default.
-  const rangeMin = typeof min !== 'undefined' ? min : 0;
-  return Math.floor(Math.random() * max) + rangeMin;
+  return Math.floor(Math.random() * max) + min;
 }
 
 // Script will fire if the user clicks the 'Generate random story' button.
