@@ -69,31 +69,27 @@ function capitalize(str) {
 function convertFahrenheitTo(convertToUnit, tempIn) {
   // This function converts a temperature in ℉ to another measurement system.
   // Usage example: convertFahrenheitTo('Celsius', 94)
-  let tempOut;
   // Define the formulas for conversion.
   const map1 = new Map();
   map1.set('celsius', (tempIn-32)/1.8);
   map1.set('kelvin', ((tempIn-32)/1.8)+273.15);
   // Perform the conversion.
-  tempOut = map1.get(convertToUnit.toLowerCase());
-  return tempOut;
+  return map1.get(convertToUnit.toLowerCase());
 }
 
 function convertLbsTo(convertToUnit, weightIn) {
   // This function converts a weight in Lbs to another measurement system.
   // Usage example: convertLbsTo('Kilograms', 164)
-  let weightOut;
   const map1 = new Map();
   // Define the formulas for conversion.
   map1.set('kilograms', weightIn / 2.2046);
   map1.set('grams', weightIn / 0.0022046);
   map1.set('oz', weightIn * 16);
   // Perform the conversion.
-  weightOut = map1.get(convertToUnit.toLowerCase());
-  return weightOut;
+  return map1.get(convertToUnit.toLowerCase());
 }
 
-function getRandomArrayItem(array){
+function getRandomArrayItem(array) {
   // This function retrieves a random value from a provided array.
   return array[getRandomNumber(0, array.length)];
 }
