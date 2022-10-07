@@ -1,21 +1,27 @@
 function onClick() {
 
+  const us = {
+    measurementType: "Imperial",
+    temperatureUnit: "Fahrenheit",
+    weightUnit: "Pounds"
+  }
+
+  const uk = {
+    measurementType: "Metric",
+    temperatureUnit: "Celsius",
+    weightUnit: "Kilograms"
+  }
+
   // Detect user preference: Imperial or Metric.
-  const country = getSelectedRadioButton('ukus');
-  const selectedUnit = country.value === 'us' ? 'Imperial' : 'Metric';
+  const selected = getSelectedRadioButton('ukus');
+  // Load the objects relevant to the user preference.
+  const preference = selected.value === 'us' ? us : uk;
 
   // Define default temperature and weight.
-  let degreesType = "Fahrenheit";
-  let weightType = "Pounds";
-  let temperature = 94;
-  let weight = 300;
-  // If the user prefers Metric, change these labels and measurements accordingly.
-  if (selectedUnit === "Metric") {
-    degreesType = "Celsius";
-    weightType = "Kilograms";
-    temperature = Math.round(convertFahrenheitTo(degreesType, temperature));
-    weight = Math.round(convertLbsTo(weightType, weight));
-  };
+  const degreesType = preference.temperatureUnit;
+  const weightType = preference.weightUnit;
+  const temperature = Math.round(convertFahrenheitTo(degreesType, 94));
+  const weight = Math.round(covertWeightLbsTo(weightType, 300));
 
   // Arrays from which to randomize the story
   const arrName = [
@@ -66,25 +72,27 @@ function capitalize(str) {
   return upperCase.slice(0,1) + lowerCase.slice(1);
 }
 
-function convertFahrenheitTo(convertToUnit, tempIn) {
+function convertFahrenheitTo(convertToUnit = 'fahrenheit', tempIn) {
   // This function converts a temperature in ℉ to another measurement system.
   // Usage example: convertFahrenheitTo('Celsius', 94)
-  // Define the formulas for conversion.
   const map1 = new Map();
+  // Define the formulas for conversion.
+  map1.set('fahrenheit', tempIn); // Default
   map1.set('celsius', (tempIn-32)/1.8);
   map1.set('kelvin', ((tempIn-32)/1.8)+273.15);
   // Perform the conversion.
   return map1.get(convertToUnit.toLowerCase());
 }
 
-function convertLbsTo(convertToUnit, weightIn) {
+function covertWeightLbsTo(convertToUnit = 'pounds', weightIn) {
   // This function converts a weight in Lbs to another measurement system.
-  // Usage example: convertLbsTo('Kilograms', 164)
+  // Usage example: covertWeightLbsTo('Kilograms', 164)
   const map1 = new Map();
   // Define the formulas for conversion.
+  map1.set('pounds', weightIn); // Default
   map1.set('kilograms', weightIn / 2.2046);
   map1.set('grams', weightIn / 0.0022046);
-  map1.set('oz', weightIn * 16);
+  map1.set('ounces', weightIn * 16);
   // Perform the conversion.
   return map1.get(convertToUnit.toLowerCase());
 }
