@@ -2,26 +2,35 @@ function onClick() {
 
   const us = {
     measurementType: "Imperial",
-    temperatureUnit: "Fahrenheit",
-    weightUnit: "Pounds"
+    temperature: {
+      unit: "Fahrenheit",
+      _reading: 94,
+      get reading() {
+        return Math.round(convertFahrenheitTo(this.temperatureUnit,this._reading))}
+    },
+    weight: {
+      unit: "Pounds",
+      _reading: 300,
+      get reading() {
+        return Math.round(covertWeightLbsTo(this.weightType, this._reading))}
+    }
   }
 
   const uk = {
     measurementType: "Metric",
-    temperatureUnit: "Celsius",
-    weightUnit: "Kilograms"
+    temperature: {
+      unit: "Celsius",
+      _reading: 94,
+      get reading() {
+        return Math.round(convertFahrenheitTo(this.temperatureUnit,this._reading))}
+    },
+    weight: {
+      unit: "Kilograms",
+      _reading: 300,
+      get reading() {
+        return Math.round(covertWeightLbsTo(this.weightType, this._reading))}
+    }
   }
-
-  // Detect user preference: Imperial or Metric.
-  const selected = getSelectedRadioButton('ukus');
-  // Load the objects relevant to the user preference.
-  const preference = selected.value === 'us' ? us : uk;
-
-  // Define default temperature and weight.
-  const degreesType = preference.temperatureUnit;
-  const weightType = preference.weightUnit;
-  const temperature = Math.round(convertFahrenheitTo(degreesType, 94));
-  const weight = Math.round(covertWeightLbsTo(weightType, 300));
 
   // Arrays from which to randomize the story
   const arrName = [
@@ -44,6 +53,10 @@ function onClick() {
   // Start with the name provided by the user. If none provided, use 'Bob'.
   let customName = document.getElementById('customname').value;
   customName = customName ? capitalize(customName) : "Bob";
+  // Detect user preference: Imperial or Metric.
+  const selected = getSelectedRadioButton('ukus');
+  // Load the objects relevant to the user preference.
+  const preference = selected.value === 'us' ? us : uk;
   // Let's randomize the story details!
   const protagonistName = getRandomArrayItem(arrName);
   const place = getRandomArrayItem(arrPlace);
@@ -51,7 +64,7 @@ function onClick() {
 
   // Generate a random story.
   const story = document.querySelector('.story');
-  story.textContent = `It was ${temperature} ${degreesType} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${weight} ${weightType}, and it was a hot day.`;
+  story.textContent = `It was ${preference.temperature.reading} ${preference.temperature.unit} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${preference.weight.reading} ${preference.weight.unit}, and it was a hot day.`;
   story.style.visibility = "visible";
 }
 
