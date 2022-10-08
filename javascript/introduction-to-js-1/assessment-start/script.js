@@ -6,13 +6,15 @@ function onClick() {
       unit: "Fahrenheit",
       _reading: 94,
       get reading() {
-        return Math.round(convertFahrenheitTo(this.temperatureUnit,this._reading))}
+        return Math.round(convertFahrenheitTo(this.unit,this._reading))
+      }
     },
     weight: {
       unit: "Pounds",
       _reading: 300,
       get reading() {
-        return Math.round(covertWeightLbsTo(this.weightType, this._reading))}
+        return Math.round(covertWeightLbsTo(this.unit, this._reading))
+      }
     }
   }
 
@@ -22,13 +24,15 @@ function onClick() {
       unit: "Celsius",
       _reading: 94,
       get reading() {
-        return Math.round(convertFahrenheitTo(this.temperatureUnit,this._reading))}
+        return Math.round(convertFahrenheitTo(this.unit,this._reading))
+      }
     },
     weight: {
       unit: "Kilograms",
       _reading: 300,
       get reading() {
-        return Math.round(covertWeightLbsTo(this.weightType, this._reading))}
+        return Math.round(covertWeightLbsTo(this.unit, this._reading))
+      }
     }
   }
 
