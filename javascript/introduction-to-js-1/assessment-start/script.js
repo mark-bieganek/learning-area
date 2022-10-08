@@ -1,6 +1,5 @@
-function randomStory() {
-
-  const us = {
+function randomStory(countryCode = 'US') {
+  const US = {
     measurementType: "Imperial",
     temperature: {
       unit: "Fahrenheit",
@@ -18,7 +17,7 @@ function randomStory() {
     }
   }
 
-  const uk = {
+  const UK = {
     measurementType: "Metric",
     temperature: {
       unit: "Celsius",
@@ -57,10 +56,9 @@ function randomStory() {
   // Start with the name provided by the user. If none provided, use 'Bob'.
   let customName = document.getElementById('customname').value;
   customName = customName ? capitalize(customName) : "Bob";
-  // Detect user preference: Imperial or Metric.
-  const selected = getSelectedRadioButton('ukus');
+  
   // Load the objects relevant to the user preference.
-  const preference = selected.value === 'us' ? us : uk;
+  const preference = countryCode.toUpperCase() === 'US' ? US : UK;
   // Let's randomize the story details!
   const protagonistName = getRandomArrayItem(arrName);
   const place = getRandomArrayItem(arrPlace);
@@ -125,8 +123,11 @@ function getRandomNumber(min = 0, max) {
 
 // Script will fire if the user clicks the 'Generate random story' button.
 document.getElementById('randomize').addEventListener('click', () => {
+    // Detect user preference: Imperial or Metric.
+    const selectedCountry = getSelectedRadioButton('ukus').value;
+    // Build and output the story.
     const story = document.querySelector('.story');
-    story.textContent = randomStory();
+    story.textContent = randomStory(selectedCountry);
     story.style.visibility = "visible";
   }
 )
