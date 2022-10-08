@@ -1,4 +1,4 @@
-function onClick() {
+function randomStory() {
 
   const us = {
     measurementType: "Imperial",
@@ -66,10 +66,8 @@ function onClick() {
   const place = getRandomArrayItem(arrPlace);
   const outcome = getRandomArrayItem(arrOutcome);
 
-  // Generate a random story.
-  const story = document.querySelector('.story');
-  story.textContent = `It was ${preference.temperature.reading} ${preference.temperature.unit} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${preference.weight.reading} ${preference.weight.unit}, and it was a hot day.`;
-  story.style.visibility = "visible";
+  // Return a random story.
+  return `It was ${preference.temperature.reading} ${preference.temperature.unit} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${preference.weight.reading} ${preference.weight.unit}, and it was a hot day.`;
 }
 
 function getSelectedRadioButton(inputName) {
@@ -126,4 +124,9 @@ function getRandomNumber(min = 0, max) {
 }
 
 // Script will fire if the user clicks the 'Generate random story' button.
-document.getElementById('randomize').addEventListener('click', onClick);
+document.getElementById('randomize').addEventListener('click', () => {
+    const story = document.querySelector('.story');
+    story.textContent = randomStory();
+    story.style.visibility = "visible";
+  }
+)
