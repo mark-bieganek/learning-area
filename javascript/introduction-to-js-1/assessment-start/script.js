@@ -1,4 +1,4 @@
-function randomStory(countryCode = 'US') {
+function randomStory(countryCode = 'US', observerName = 'Bob') {
   const US = {
     measurementType: "Imperial",
     temperature: {
@@ -52,10 +52,6 @@ function randomStory(countryCode = 'US') {
     "turned into a slug and crawled away"
   ]
 
-  // Assign story elements.
-  // Start with the name provided by the user. If none provided, use 'Bob'.
-  let customName = document.getElementById('customname').value;
-  customName = customName ? capitalize(customName) : "Bob";
   
   // Load the objects relevant to the user preference.
   const preference = countryCode.toUpperCase() === 'US' ? US : UK;
@@ -65,7 +61,7 @@ function randomStory(countryCode = 'US') {
   const outcome = getRandomArrayItem(arrOutcome);
 
   // Return a random story.
-  return `It was ${preference.temperature.reading} ${preference.temperature.unit} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome} .  ${customName} saw the whole thing, but was not surprised — ${protagonistName} weighs ${preference.weight.reading} ${preference.weight.unit}, and it was a hot day.`;
+  return `It was ${preference.temperature.reading} ${preference.temperature.unit} outside, so ${protagonistName} went for a walk. When they got to  ${place} , they stared in horror for a few moments, then  ${outcome}. ${capitalize(observerName)} saw the whole thing, but was not surprised — ${protagonistName} weighs ${preference.weight.reading} ${preference.weight.unit}, and it was a hot day.`;
 }
 
 function getSelectedRadioButton(inputName) {
@@ -123,11 +119,15 @@ function getRandomNumber(min = 0, max) {
 
 // Script will fire if the user clicks the 'Generate random story' button.
 document.getElementById('randomize').addEventListener('click', () => {
+    // Assign story elements.
+    // Start with the name provided by the user. If none provided, use 'Bob'.
+    let customName = document.getElementById('customname').value;
+    customName = customName ? capitalize(customName) : "Bob";  
     // Detect user preference: Imperial or Metric.
     const selectedCountry = getSelectedRadioButton('ukus').value;
     // Build and output the story.
     const story = document.querySelector('.story');
-    story.textContent = randomStory(selectedCountry);
+    story.textContent = randomStory(selectedCountry, customName);
     story.style.visibility = "visible";
   }
 )
